@@ -8,22 +8,46 @@ from Nexa.core.call import call
 
 
 async def main():
-    print("Starting bot...")
-    await bot.start()
-    print("✅ Bot client started")
+    print("🚀 Starting Nexa Music...")
 
-    await assistant.start()
-    print("✅ Assistant started")
+    try:
+        await bot.start()
+        print("✅ Bot started")
 
-    await call.start()
-    print("✅ PyTgCalls started")
+        await assistant.start()
+        print("✅ Assistant started")
 
-    await idle()
+        await call.start()
+        print("✅ PyTgCalls started")
 
-    print("Stopping...")
-    await call.stop()
-    await assistant.stop()
-    await bot.stop()
+        print("🎵 Nexa Music is running")
+        await idle()
+
+    except KeyboardInterrupt:
+        pass
+
+    except Exception as e:
+        print(f"❌ Startup error: {e}")
+
+    finally:
+        print("🛑 Stopping Nexa Music...")
+
+        try:
+            await call.stop()
+        except Exception:
+            pass
+
+        try:
+            await assistant.stop()
+        except Exception:
+            pass
+
+        try:
+            await bot.stop()
+        except Exception:
+            pass
+
+        print("✅ Shutdown complete")
 
 
 if __name__ == "__main__":
